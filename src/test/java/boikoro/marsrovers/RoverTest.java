@@ -1,6 +1,7 @@
 package boikoro.marsrovers;
 
 import static boikoro.marsrovers.Direction.NORTH;
+import static boikoro.marsrovers.Step.FORWARD;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -22,13 +23,12 @@ public class RoverTest {
 
 	@Test
 	public void shouldMoveToPositionNextToCurrentAccordingToStepValue() {
-		String step = "M";
 		Position initialPosition = mock(Position.class);
 		Position targetPosition = new Position(1, 2, Direction.NORTH);
-		when(initialPosition.nextPosition(step)).thenReturn(targetPosition);
+		when(initialPosition.nextPosition(FORWARD)).thenReturn(targetPosition);
 		Rover rover = new Rover(initialPosition);
-		rover.move(step);
-		verify(initialPosition).nextPosition(step);
+		rover.move(FORWARD);
+		verify(initialPosition).nextPosition(FORWARD);
 		assertThat(rover.getCurrentPosition(), is(equalTo(targetPosition)));
 	}
 }

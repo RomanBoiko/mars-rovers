@@ -1,21 +1,22 @@
 package boikoro.marsrovers;
 
+import static boikoro.marsrovers.Direction.EAST;
+import static boikoro.marsrovers.Direction.NORTH;
+import static boikoro.marsrovers.Direction.SOUTH;
+import static boikoro.marsrovers.Direction.WEST;
 import static boikoro.marsrovers.Direction.turnDirection;
+import static boikoro.marsrovers.Step.FORWARD;
 import static java.lang.String.format;
 
 public class Position {
 	private final int xPosition;
 	private final int yPosition;
-	private final String direction;
+	private final Direction direction;
 
-	public Position(int xPosition, int yPosition, String direction) {
+	public Position(int xPosition, int yPosition, Direction direction) {
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.direction = direction;
-	}
-
-	public String direction() {
-		return this.direction;
 	}
 
 	public Position getCopy() {
@@ -41,15 +42,15 @@ public class Position {
 		return result;
 	}
 
-	public Position nextPosition(String step) {
-		if (step.equals(Step.MOVE)) {
-			if (direction.equals(Direction.SOUTH)) {
+	public Position nextPosition(Step step) {
+		if (step.equals(FORWARD)) {
+			if (direction.equals(SOUTH)) {
 				return new Position(xPosition, yPosition - 1, direction);
-			} else if (direction.equals(Direction.WEST)) {
+			} else if (direction.equals(WEST)) {
 				return new Position(xPosition - 1, yPosition, direction);
-			} else if (direction.equals(Direction.NORTH)) {
+			} else if (direction.equals(NORTH)) {
 				return new Position(xPosition, yPosition + 1, direction);
-			} else if (direction.equals(Direction.EAST)) {
+			} else if (direction.equals(EAST)) {
 				return new Position(xPosition + 1, yPosition, direction);
 			}
 		}
@@ -59,7 +60,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return format("Position(x=%d, y=%d, direction=%s)", xPosition, yPosition, direction);
+		return format("%d %d %s", xPosition, yPosition, direction);
 	}
 	
 	

@@ -4,7 +4,7 @@ import static boikoro.marsrovers.Direction.EAST;
 import static boikoro.marsrovers.Direction.NORTH;
 import static boikoro.marsrovers.Direction.SOUTH;
 import static boikoro.marsrovers.Direction.WEST;
-import static boikoro.marsrovers.Step.MOVE;
+import static boikoro.marsrovers.Step.FORWARD;
 import static boikoro.marsrovers.Step.RIGHT;
 import static boikoro.marsrovers.Step.LEFT;
 import static org.junit.Assert.assertEquals;
@@ -21,10 +21,10 @@ import org.junit.runners.Parameterized.Parameters;
 public class PositionChangingTest {
 
 	private Position initialPosition;
-	private String step;
+	private Step step;
 	private Position expectedTargetPosition;
 
-	public PositionChangingTest(Position initialPosition, String step,
+	public PositionChangingTest(Position initialPosition, Step step,
 			Position expectedTargetPosition) {
 		this.initialPosition = initialPosition;
 		this.step = step;
@@ -34,10 +34,10 @@ public class PositionChangingTest {
 	@Parameters
 	public static Collection<Object[]> data() {
 		return Arrays.asList(new Object[][]{
-				{position(2, 2, NORTH), MOVE, position(2, 3, NORTH)},
-				{position(2, 2, EAST), MOVE, position(3, 2, EAST)},
-				{position(2, 2, WEST), MOVE, position(1, 2, WEST)},
-				{position(2, 2, SOUTH), MOVE, position(2, 1, SOUTH)},
+				{position(2, 2, NORTH), FORWARD, position(2, 3, NORTH)},
+				{position(2, 2, EAST), FORWARD, position(3, 2, EAST)},
+				{position(2, 2, WEST), FORWARD, position(1, 2, WEST)},
+				{position(2, 2, SOUTH), FORWARD, position(2, 1, SOUTH)},
 
 				{position(2, 2, NORTH), RIGHT, position(2, 2, EAST)},
 				{position(2, 2, NORTH), LEFT, position(2, 2, WEST)},
@@ -58,7 +58,7 @@ public class PositionChangingTest {
 		assertEquals(expectedTargetPosition, initialPosition.nextPosition(step));
 	}
 	
-	private static Position position(int xPosition, int yPosition, String direction) {
+	private static Position position(int xPosition, int yPosition, Direction direction) {
 		return new Position(xPosition, yPosition, direction);
 	}
 

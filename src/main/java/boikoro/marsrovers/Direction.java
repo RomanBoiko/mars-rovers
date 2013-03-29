@@ -1,41 +1,47 @@
 package boikoro.marsrovers;
 
-public class Direction {
-	public static final String NORTH = "N";
-	public static final String EAST = "E";
-	public static final String SOUTH = "S";
-	public static final String WEST = "W";
+import static boikoro.marsrovers.Step.LEFT;
+import static boikoro.marsrovers.Step.RIGHT;
+import static java.lang.String.format;
+
+public enum Direction {
+	NORTH("N"), EAST("E"), SOUTH("S"), WEST("W");
 	
-	public static String turnDirection(String from, String step) {
-		if(from.equals(NORTH)) {
-			if(step.equals(Step.RIGHT)) {
-				return EAST;
-			} else {
-				return WEST; 
-			}
-		}
-		if(from.equals(EAST)) {
-			if(step.equals(Step.RIGHT)) {
-				return SOUTH;
-			} else {
-				return NORTH; 
-			}
-		}
-		if(from.equals(SOUTH)) {
-			if(step.equals(Step.RIGHT)) {
-				return WEST; 
-			} else {
-				return EAST;
-			}
-		}
-		if(from.equals(WEST)) {
-			if(step.equals(Step.RIGHT)) {
-				return NORTH;
-			} else {
-				return SOUTH; 
-			}
-		}
-		return SOUTH;
+	private final String directionShortcut;
+
+	private Direction(String directionShortcut) {
+		this.directionShortcut = directionShortcut; 
 	}
 
+	public String toString() {
+		return directionShortcut;
+	}
+	
+	public static Direction fromString(String shortcut) {
+		for(Direction direction: values()) {
+			if(direction.directionShortcut.equals(shortcut)) {
+				return direction;
+			}
+		}
+		throw new IllegalArgumentException(format("Invalid direction given: %s", shortcut));
+	}
+
+	public static Direction turnDirection(Direction from, Step step) {
+		if(step.equals(RIGHT)) {
+			switch(from) {
+				case NORTH: { return EAST; }
+				case EAST: { return SOUTH; }
+				case SOUTH: { return WEST; }
+				case WEST: { return NORTH; }
+			}
+		} else if (step.equals(LEFT)) {
+			switch(from) {
+				case NORTH: { return WEST; }
+				case EAST: { return NORTH; }
+				case SOUTH: { return EAST; }
+				case WEST: { return SOUTH; }
+			}
+		}
+		throw new IllegalArgumentException(format("Invalid turn: from %s using %s", from, step));
+	}
 }
