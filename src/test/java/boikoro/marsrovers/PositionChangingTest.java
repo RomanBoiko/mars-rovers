@@ -9,6 +9,7 @@ import static boikoro.marsrovers.Step.RIGHT;
 import static boikoro.marsrovers.Step.LEFT;
 import static org.junit.Assert.assertEquals;
 
+import java.awt.Dimension;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -20,6 +21,7 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class PositionChangingTest {
 
+	private static final Dimension PLATEAU_DIMENSION = new Dimension(4, 4);
 	private Position initialPosition;
 	private Step step;
 	private Position expectedTargetPosition;
@@ -55,7 +57,7 @@ public class PositionChangingTest {
 
 	@Test
 	public void shouldMoveFromInitialPositionToTargetOneAfterGivenStep() {
-		assertEquals(expectedTargetPosition, initialPosition.nextPosition(step));
+		assertEquals(expectedTargetPosition, initialPosition.nextPosition(step, PLATEAU_DIMENSION));
 	}
 	
 	private static Position position(int xPosition, int yPosition, Direction direction) {

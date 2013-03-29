@@ -1,4 +1,31 @@
 ==MARS ROVERS==
 
+=========
+Comments:
+=========
+- boikoro.marsrovers.MarsExpeditionAcceptanceTest - Acceptance test with input as in the task
+
+- All classes are tested on unit level
+
+- Using Hamcrest matchers could be easily avoided - but left for tests readability
+
+- No javadoc annotations and comments in code - code should be self-explaining
+  For example, main flow of application is described in boikoro.marsrovers.MarsExpeditionAcceptanceTest.getExpeditionResult():
+	1. Input is parsed into LandingPlan
+	2. MarsExpedition reads this landing plan
+	3. MarsExpedition lands and moves rovers according to plan and generates LandingResultReport
+
+- Direction.turnDirection() would be better to implement using cyclic bidirectional collection to move right/left,
+  but no such collection in Java core, only in third-party libraries. Not reasonable as for me to write own one for this task
+
+- Classes protected from unexpected change -
+  thats why copies of values and not references to internal attributes
+  are returned in getters (i.e. RoutePlan.getRoute())
+
+- boikoro.marsrovers.Position is immutable, so we can return reference to it in getters
+  (i.e. boikoro.marsrovers.RoutePlan.getInitialPosition, boikoro.marsrovers.Rover.getCurrentPosition).
+
+============
 Assumptions:
-- If sequence of commands will move Rover out of plateau border - this Rover must crash (throw an exception)
+============
+- If sequence of commands will move Rover out of plateau border - this Rover must crash during moving (throw an exception)

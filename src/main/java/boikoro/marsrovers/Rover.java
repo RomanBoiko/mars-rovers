@@ -1,5 +1,8 @@
 package boikoro.marsrovers;
 
+import java.awt.Dimension;
+import java.util.List;
+
 public class Rover {
 
 	private Position currentPosition;
@@ -9,10 +12,12 @@ public class Rover {
 	}
 
 	public Position getCurrentPosition() {
-		return currentPosition.getCopy();
+		return currentPosition;
 	}
 
-	public void move(Step step) {
-		currentPosition = currentPosition.nextPosition(step);
+	public void move(List<Step> route, Dimension plateauDimension) {
+		for(Step step: route) {
+			currentPosition = currentPosition.nextPosition(step, plateauDimension);
+		}
 	}
 }
