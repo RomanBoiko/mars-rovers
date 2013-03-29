@@ -1,0 +1,4 @@
+==MARS ROVERS==
+
+Assumptions:
+- If sequence of commands will move Rover out of plateau border - this Rover must crash (throw an exception)
