@@ -29,3 +29,6 @@ Comments:
 Assumptions:
 ============
 - If sequence of commands will move Rover out of plateau border - this Rover must crash during moving (throw an exception)
+
+Source on GitHub: https://github.com/RomanBoiko/mars-rovers
+"!http://api.coderwall.com/romanboiko/endorsecount.png!":http://coderwall.com/romanboiko
