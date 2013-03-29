@@ -12,5 +12,7 @@ public class Rover {
 		return currentPosition.getCopy();
 	}
 
-
+	public void move(String step) {
+		currentPosition = currentPosition.nextPosition(step);
+	}
 }

@@ -1,15 +1,21 @@
 package boikoro.marsrovers;
 
+import static boikoro.marsrovers.Direction.turnDirection;
+import static java.lang.String.format;
+
 public class Position {
-	final private int xPosition;
-	final private int yPosition;
-	final String direction;
-	
+	private final int xPosition;
+	private final int yPosition;
+	private final String direction;
 
 	public Position(int xPosition, int yPosition, String direction) {
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.direction = direction;
+	}
+
+	public String direction() {
+		return this.direction;
 	}
 
 	public Position getCopy() {
@@ -34,4 +40,28 @@ public class Position {
 		result = prime * result + yPosition;
 		return result;
 	}
+
+	public Position nextPosition(String step) {
+		if (step.equals(Step.MOVE)) {
+			if (direction.equals(Direction.SOUTH)) {
+				return new Position(xPosition, yPosition - 1, direction);
+			} else if (direction.equals(Direction.WEST)) {
+				return new Position(xPosition - 1, yPosition, direction);
+			} else if (direction.equals(Direction.NORTH)) {
+				return new Position(xPosition, yPosition + 1, direction);
+			} else if (direction.equals(Direction.EAST)) {
+				return new Position(xPosition + 1, yPosition, direction);
+			}
+		}
+
+		return new Position(xPosition, yPosition, turnDirection(direction, step));
+	}
+
+	@Override
+	public String toString() {
+		return format("Position(x=%d, y=%d, direction=%s)", xPosition, yPosition, direction);
+	}
+	
+	
+
 }
